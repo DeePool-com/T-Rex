@@ -1,0 +1,47 @@
+APP DE INDICADORES - VERSION INSTALABLE (celular y PC)
+======================================================
+
+CONTENIDO
+  index.html, manifest.webmanifest, sw.js, carpeta icons y carpeta lib.
+  Sube TODO junto (sin cambiar nombres ni carpetas).
+
+1) PUBLICAR LA APP (GitHub Pages)
+  - En GitHub crea un repositorio nuevo, por ejemplo "app-indicadores", y sube todos los archivos.
+  - Settings > Pages > Source: "Deploy from a branch" > rama main, carpeta "/ (root)" > Save.
+  - En 1 o 2 minutos queda en una direccion como https://TU-USUARIO.github.io/app-indicadores/
+
+2) INSTALAR EN EL CELULAR
+  - Android (Chrome): abrir la direccion > menu de los 3 puntos > "Instalar app".
+    (tambien aparece el boton "Instalar app" dentro del menu de la aplicacion)
+  - iPhone (Safari): Compartir > "Agregar a pantalla de inicio".
+  - Despues de la primera vez funciona sin internet; los datos se guardan en el equipo.
+
+3) GUARDAR LOS DATOS EN GITHUB (solo vacaciones e indicadores)
+  - Crea OTRO repositorio, PRIVADO, solo para los datos (ej. "datos-indicadores").
+    La app puede ser publica, pero los datos de los colaboradores no deben estar en un repositorio publico.
+  - Crea un token: GitHub > Settings > Developer settings > Personal access tokens > Fine-grained tokens.
+      * Repository access: solo "datos-indicadores".
+      * Permissions > Contents: "Read and write" para el administrador.
+      * Para quienes solo ven: otro token con "Read-only".
+  - En la app: menu (3 rayas) > GitHub > "Configurar GitHub":
+      usuario, repositorio (datos-indicadores), rama (main), archivo (data/indicadores.json) y el token.
+  - Administrador: boton del candado, PIN inicial 1234 (cambialo en menu > GitHub > Cambiar PIN).
+    Cada cambio se guarda solo en GitHub a los 3 segundos. Tambien: "Guardar en GitHub ahora".
+  - Los demas dispositivos reciben los datos al abrir la app, al volver a ella y cada 3 minutos
+    (o menu > GitHub > "Actualizar desde GitHub").
+  - El token queda guardado solo en ese dispositivo.
+
+4) QUE SE GUARDA EN EL ARCHIVO
+  Indicadores (datos y configuracion), tableros del segundo nivel, BI Master, colaboradores con sus
+  vacaciones (1a y 2a salida, emergencias), secciones y grupos de Personal y el orden de las tarjetas.
+  No se guardan: notas del calendario, colores de la barra superior ni preferencias de pantalla.
+
+5) RESPALDO EN ARCHIVO JSON
+  Menu > RESPALDO > "Guardar configuracion (JSON)" descarga el archivo y
+  "Cargar configuracion (JSON)" lo restaura (reemplaza los datos actuales).
+  Es el mismo formato que usa GitHub.
+
+NOTAS
+  - El PIN solo bloquea la pantalla de edicion en ese dispositivo; la proteccion real es el token
+    (sin token de escritura nadie puede cambiar el archivo de GitHub).
+  - Para actualizar la app mas adelante, reemplaza index.html en el repositorio y abre la app dos veces.
