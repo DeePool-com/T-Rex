@@ -1,0 +1,137 @@
+APP DE INDICADORES - VERSION INSTALABLE (celular y PC)
+======================================================
+
+CONTENIDO
+  index.html, manifest.webmanifest, sw.js, carpeta icons y carpeta lib.
+  Sube TODO junto (sin cambiar nombres ni carpetas).
+
+1) PUBLICAR LA APP (GitHub Pages)
+  - En GitHub crea un repositorio nuevo, por ejemplo "app-indicadores", y sube todos los archivos.
+  - Settings > Pages > Source: "Deploy from a branch" > rama main, carpeta "/ (root)" > Save.
+  - En 1 o 2 minutos queda en una direccion como https://TU-USUARIO.github.io/app-indicadores/
+
+2) INSTALAR EN EL CELULAR
+  - Android (Chrome): abrir la direccion > menu de los 3 puntos > "Instalar app".
+    (tambien aparece el boton "Instalar app" dentro del menu de la aplicacion)
+  - iPhone (Safari): Compartir > "Agregar a pantalla de inicio".
+  - Despues de la primera vez funciona sin internet; los datos se guardan en el equipo.
+
+SI DICE "NO SE PUEDE INSTALAR ESTA APP"
+  Chrome solo permite instalar una pagina que este publicada en su propia direccion segura (https://...),
+  con el manifest y el service worker cargando bien. No se instala si abres los archivos desde el celular
+  (127.0.0.1, un servidor local, el administrador de archivos o una carpeta).
+  Solucion: publicala en GitHub Pages (paso 1) y abre esa direccion https en Chrome. Luego espera unos segundos y
+  usa menu de Chrome > "Instalar app" (o el boton "Instalar app" dentro del menu de la aplicacion).
+  Para revisar que falla: menu de la aplicacion > Diagnostico (muestra cada requisito con una marca).
+  Mientras tanto, "Crear acceso directo" permite abrirla como un acceso directo (sin instalar).
+
+3) GUARDAR LOS DATOS EN GITHUB (solo vacaciones e indicadores)
+  - Crea OTRO repositorio, PRIVADO, solo para los datos (ej. "datos-indicadores").
+    La app puede ser publica, pero los datos de los colaboradores no deben estar en un repositorio publico.
+  - Crea un token: GitHub > Settings > Developer settings > Personal access tokens > Fine-grained tokens.
+      * Repository access: solo "datos-indicadores".
+      * Permissions > Contents: "Read and write" para el administrador.
+      * Para quienes solo ven: otro token con "Read-only".
+  - En la app: menu (3 rayas) > GitHub > "Configurar GitHub":
+      usuario, repositorio (datos-indicadores), rama (main), archivo (data/indicadores.json) y el token.
+  - Quien tenga permiso de editar (inicia sesion con el candado) guarda solo en GitHub 3 segundos despues de cada cambio, si ese dispositivo tiene token de escritura. Tambien: "Guardar en GitHub ahora".
+  - Los demas dispositivos reciben los datos al abrir la app, al volver a ella y cada 3 minutos
+    (o menu > GitHub > "Actualizar desde GitHub").
+  - El token queda guardado solo en ese dispositivo.
+
+USUARIOS (inicio de sesion, candado y engranaje)
+  Al abrir la app pide usuario y clave (casilla "Recordar en este dispositivo" para no volver a escribirlos).
+  El candado cierra la sesion.
+  Usuarios iniciales: loc711 (desarrollador), Grt711 (Gerencia), Mercg711 (Merc G.).
+  Solo el desarrollador abre el engranaje junto al candado para activar o quitar permisos, cambiar usuarios y claves,
+  agregar o eliminar usuarios. CAMBIA LAS CLAVES INICIALES. Los usuarios y permisos viajan en el mismo archivo de GitHub
+  (las claves van cifradas, no en texto), asi se aplican en todos los dispositivos.
+  Es un control de acceso de la pantalla; la proteccion real de los datos es el token de GitHub.
+
+4) QUE SE GUARDA EN EL ARCHIVO
+  Indicadores (datos y configuracion), tableros del segundo nivel, BI Master, colaboradores con sus
+  vacaciones (1a y 2a salida, emergencias), secciones y grupos de Personal, el orden de las tarjetas
+  y los usuarios con sus permisos (claves cifradas).
+  No se guardan: notas del calendario, colores de la barra superior ni preferencias de pantalla.
+
+5) RESPALDO EN ARCHIVO (JSON o Excel)
+  Menu > Restaurar respaldo: acepta el JSON (reemplaza los datos) o el Excel de respaldo (combina y actualiza datos,
+  indicadores y colaboradores), y si GitHub esta configurado tambien "Desde GitHub".
+  Para ordenar los iconos de abajo: mantenlos presionados 3 segundos (o Menu > Mover iconos de abajo).
+  Menu > RESPALDO > "Guardar configuracion (JSON)" descarga el archivo y
+  "Cargar configuracion (JSON)" lo restaura (reemplaza los datos actuales).
+  Es el mismo formato que usa GitHub.
+
+NOTAS
+  - Sin token de escritura nadie puede cambiar el archivo de GitHub, sin importar el usuario con el que entre.
+  - Para actualizar la app mas adelante, reemplaza index.html en el repositorio y abre la app dos veces.
+
+NOVEDADES v0.1.6
+- Calendario: doble clic (o doble toque) en una fecha -> Nota / No vigente.
+- Notas: las ve todo el mundo; solo edita quien tenga el permiso "Editar notas del calendario". Las marcadas como importantes suenan y notifican el dia de la nota al abrir la app.
+- No vigentes: codigo de barras (con escaner de camara), fecha de registro, fecha de no vigencia y hasta 3 fotos. Se ven en Tableros de gestion -> No vigentes.
+- Los datos de notas y No vigentes se guardan en un segundo archivo del mismo repositorio: data/gestion.json (junto a indicadores.json).
+- Tableros internos dentro de un tablero: tablero -> secciones -> indicadores.
+- Corregido: los tableros de 3er nivel no se abrian.
+
+v0.1.7
+- Inicio ahora es: Nivel -> Tableros -> Secciones -> Indicadores. Primer nivel (Anual), Segundo nivel (Mercancias Generales, Supermercado...) y Tercer nivel tienen cada uno su lista de tableros.
+
+v0.1.8
+- Notas con prioridad: Urgente (rojo, suena), Tarde (amarillo), Despues (verde). Punto de color abajo a la izquierda en el calendario y seccion amarilla "Notas del mes".
+- No vigente: cantidad, anclaje a Tablero > Seccion > Indicador > Entrada (Sem 1, Sem 2 o el nombre que ingreses); la cantidad se suma sola en esa entrada del indicador.
+- Fotos: 1 Producto, 2 Fecha, 3 Codigo, unidas en una sola foto liviana (640 px).
+
+v0.1.9
+- Indicadores: mantener presionado (medio segundo) una tarjeta y arrastrarla para reordenar. Si se suelta sin mover, abre la edicion del indicador.
+- Dentro de un indicador, los iconos (minimizar, imprimir, configuracion) estan arriba, a la derecha de "Inicio", para ver mejor el titulo.
+- Notas: sonido configurable (sin sonido, una vez, cada 2/4/5/10 minutos) y repeticiones (3, 5, 10 veces o hasta cerrarla). Suena con la app abierta, el dia de la nota.
+- Candado: pregunta "Deseas cerrar la sesion? No / Si". La sesion se cierra sola tras 10 minutos sin actividad (aviso 30 segundos antes).
+
+v0.2.0
+- Permisos: solo el desarrollador ve las configuraciones (respaldo, sistema, colores, notas, No vigentes). Se pueden activar por usuario en Usuarios y permisos (nuevo permiso "Ver configuraciones del menu").
+- Usuarios y permisos: tarjetas; al tocar una se abre una ventana con todos los datos, permisos y el interruptor "Usuario activo".
+- Calendario: "Notas del mes" solo aparece si hay notas; el boton Nota / No vigente solo con permiso.
+- Tableros de gestion > No vigentes: solo texto (foto con boton "Ver foto") y descarga a Excel.
+- Indicadores: tamano del texto (70% a 150%), lineas divisorias, nombres en recuadros, metas en recuadro amarillo.
+- Imprimir > Ficha A5 (formato Excel): encabezado, titulo rojo y grafico centrado con margen, tamano y posicion ajustables.
+
+v0.2.1
+- Fechas: se pueden escribir completas (15012027 se convierte en 15/01/2027) y hay un calendario con mes y ano editables, fines de semana en amarillo y feriados con estrella.
+- Salida aprobada (antes emergencia): amarillo, dias automaticos con Inicio e Ingreso.
+- Colaboradores: grupo, cargo (jefe/subjefe) y dias de descanso (por dia de la semana o cada 15 dias sabado y domingo). La lista y la linea de tiempo se agrupan por grupo.
+- Feriados (Ecuador) con estrella; editables en Personal > Feriados, con grupo opcional.
+- Linea de tiempo: nombres ajustados, colores mas fuertes, descansos y estrellas.
+- Indicadores: relleno de barras (suave, solido, transparente), menu mejorado, recuadros solo en niveles 2 y 3.
+- Imprimir: vista previa a tamano real y boton Imprimir (abre el cuadro de impresion del equipo).
+
+v0.2.2
+- Descanso: en el formulario del colaborador hay un icono 🛌 arriba a la derecha. Tipos: Tiempo completo (cada 15 dias sabado y domingo), 8 horas (2 dias entre semana), Fin de semana (descansa lunes a viernes) y Personalizado.
+- Linea de tiempo: cada barra muestra de que dia a que dia sale ("15/03 - 29/03 · 15 d"); estilo ejecutivo (azul marino, tonos sobrios, dorado); franja de feriados; una estrella por feriados consecutivos.
+- Notificaciones: el permiso se pide una sola vez por dispositivo (y nunca en archivos locales file://). Boton manual en el menu > Sistema > Activar notificaciones.
+
+v0.2.3 - DATOS VINCULADOS (Tableros de gestion > Datos vinculados)
+- Importar Excel/CSV: cada hoja se convierte en una tabla (detecta numeros y fechas). Tambien se puede crear una tabla vacia o pegar filas desde Excel.
+- Modelo: lienzo tipo Tableau con las tablas y sus relaciones; arrastra las cajas, toca una linea para editarla. Las relaciones sin coincidencias salen en rojo con aviso.
+- Columnas: texto, numero, fecha, formula ([Fisico]-[Sistema]) y "traer dato" de otra tabla relacionada. Si cambias un dato en su tabla (o un colaborador en Personal), todo lo vinculado se actualiza solo.
+- Informes: agrupa, suma, cuenta, promedia, filtra; descarga Excel o PDF, imprime en A5/A4/A3 y puede alimentar una entrada de un indicador automaticamente.
+- Con GitHub configurado, las tablas se guardan en la carpeta data/tablas/ del repositorio (un archivo por tabla) y se sincronizan entre dispositivos.
+- Permiso nuevo: "Gestionar datos vinculados". Los demas usuarios solo pueden ver y exportar.
+
+v0.2.4
+- Modo horizontal: boton ↔️ en la barra del indicador (y aviso flotante al girar el celular). Oculta el encabezado, el menu de abajo y la fila de Inicio; al girar a vertical sale solo.
+- Acumulado: opcion "Promedio por semana / dia" (grupo extra con las barras 1..5) en Configuracion > Acumulado. La etiqueta se acorta a "ACUM." cuando no cabe.
+- Leyenda (Cumple / No cumple / Acumulado / Meta): se puede ocultar y cada color se cambia tocandolo.
+- Inicio de sesion: al girar el icono se oculta y aparece el texto "Sistema en desarrollo..." en su mismo lugar.
+- Menu ☰ > APP > Instalar la app: instala o, si Chrome no lo ofrece, revisa manifest, iconos y service worker e indica que archivo falta.
+
+PARA INSTALAR DESDE GITHUB PAGES (checklist)
+1) En el repositorio deben quedar, en la MISMA carpeta: index.html, manifest.webmanifest, sw.js, la carpeta icons/ (4 png) y la carpeta lib/ (2 js).
+2) Abre en Chrome: https://TU-USUARIO.github.io/TU-REPO/manifest.webmanifest y .../icons/icon-512.png ; si alguna da error 404, ese archivo no se subio.
+3) Cierra Chrome por completo, abre la direccion y espera unos segundos; luego ⋮ > Instalar app.
+
+v0.2.5
+- Clic derecho (o mantener presionado y soltar) sobre un indicador: Editar nombre, Duplicar indicador, Color de la tarjeta (verde, rojo, azul... transparente, 3 intensidades), Copiar nombres y datos en otros indicadores, Eliminar.
+- Tooltips profesionales en los graficos: al pasar el mouse o tocar una barra muestra el dato, si cumple o no, y la meta.
+- Inicio de sesion: el icono y el texto "Sistema en desarrollo..." ya no se ven al mismo tiempo.
+- Tableros de gestion > Diagrama de Pareto: datos manuales, desde indicadores o desde informes de Datos vinculados. Colores Cumple/No cumple, linea de prioridad (70-90%), exporta Excel, SVG y PDF/imprimir.
