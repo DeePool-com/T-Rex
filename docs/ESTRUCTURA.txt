@@ -1,0 +1,37 @@
+ESTRUCTURA DEL PROYECTO - Sistema & Gestión (App de Indicadores)
+=================================================================
+
+app-indicadores/                  Repositorio PUBLICO (GitHub Pages)
+|
+|-- index.html                    Aplicacion completa (interfaz, logica y estilos)
+|-- manifest.webmanifest          Datos de instalacion (nombre, colores, iconos)
+|-- sw.js                         Service worker: cache y funcionamiento sin internet
+|
+|-- icons/                        Iconos de la app
+|   |-- icon-180.png              iPhone / iPad (apple-touch-icon)
+|   |-- icon-192.png              Android / PC (instalacion)
+|   |-- icon-512.png              Android / PC (pantalla de carga)
+|   `-- icon-512-maskable.png     Android (icono adaptable, con margen de seguridad)
+|
+|-- lib/                          Librerias externas (sin tocar)
+|   |-- jspdf.umd.min.js          Generar PDF
+|   `-- xlsx.full.min.js          Leer y escribir Excel
+|
+`-- docs/                         Documentacion (no afecta a la app)
+    |-- LEEME.txt                 Guia de publicacion, instalacion y novedades
+    `-- ESTRUCTURA.txt           Este organigrama
+
+
+datos-indicadores/                Repositorio PRIVADO (solo datos, lo crea la app)
+|
+`-- data/
+    |-- indicadores.json          Indicadores, tableros, colaboradores, usuarios
+    |-- gestion.json              Notas del calendario y No vigentes
+    `-- tablas/                   Datos vinculados (un archivo por tabla)
+
+
+REGLAS IMPORTANTES
+- index.html, sw.js y manifest.webmanifest van juntos en la raiz.
+- Los nombres de icons/ y lib/ deben quedar exactamente asi: el codigo los busca por ese nombre.
+- Los datos nunca se suben al repositorio publico.
+- Para actualizar: reemplazar solo index.html (y subir la version en sw.js si cambias archivos en cache).
